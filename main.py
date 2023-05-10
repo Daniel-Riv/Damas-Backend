@@ -175,32 +175,24 @@ async def main(play: Move):
     if ending_conditions(position, without_capture, forced_caputure):
         return position.get_table()
 
-    print("New depth is {} ".format(depth))
     available_pieces = position.find_capturing_moves()
     if forced_caputure:
-        print_table(position.get_table(), available_pieces)
         piece = input_choose_piece(position, coord, available_pieces)
-        print(piece)
     else:
-        print_table(position.get_table())
         piece = input_choose_piece(position, coord)
     
     if not piece:
-        print("Goodbye!")
         return "Goodbye!"
     if isinstance (piece,str):
         return piece
     valid_moves = position.find_valid_moves_for_piece(
         piece, forced_caputure)
-    print_table(position.get_table(), piece, valid_moves)
     new_position = input_choose_field(valid_moves,coord2)
     if not new_position:
         return "Taknuto maknuto! Doviđenja!"
     previous_table = deepcopy(position.get_table())
     position = position.play_move(piece, new_position)
     differences = position.find_move_played(previous_table)
-    print_table(position.get_table(), differences)
-    print("User played the move displayed on the table above.\n\n\n")
     if ending_conditions(position, without_capture, forced_caputure):
         return position.get_table()
     num_moves = len(position.get_next_moves())
@@ -219,9 +211,6 @@ async def main(play: Move):
     t2 = time()
     time_previous_move = t2 - t1
     differences = position.find_move_played(previous_table)
-    print(time_previous_move)
-    print_table(position.get_table(), differences)
-    print("Computer played a move displayed on the table above.\n\n")
     return position.get_table()
 
 @app.post("/valid_moves")
@@ -231,7 +220,6 @@ async def valid_moves(valid: ValidMoves):
 
     forced = "no"
     forced_caputure = input_forced_moves(forced)
-    print (forced, forced_caputure)
     position = Position(table, True)
 
     depth = 6
@@ -241,23 +229,19 @@ async def valid_moves(valid: ValidMoves):
     if ending_conditions(position, without_capture, forced_caputure):
         return ending_conditions(position, without_capture, forced_caputure)
 
-    print("New depth is {} ".format(depth))
+
     available_pieces = position.find_capturing_moves()
     if forced_caputure:
-        print_table(position.get_table(), available_pieces)
         piece = input_choose_piece(position, coord, available_pieces)
     else:
-        print_table(position.get_table())
         piece = input_choose_piece(position, coord)
 
     if not piece:
-        print("Goodbye!")
         return "Goodbye!"
     if isinstance (piece,str):
         return piece
     valid_moves = position.find_valid_moves_for_piece(
         piece, forced_caputure)
-    print_table(position.get_table(), piece, valid_moves)
     return (valid_moves, position.get_table())
 
 @app.get("/rendir")
@@ -292,28 +276,22 @@ async def player(move: Move):
     available_pieces = position.find_capturing_moves()
    
     if forced_caputure:
-        print_table(position.get_table(), available_pieces)
         piece = input_choose_piece(position, coord, available_pieces)
     else:
-        print_table(position.get_table())
         piece = input_choose_piece(position, coord)
     
     if not piece:
-        print("Goodbye!")
         return "Goodbye!"
     if isinstance (piece,str):
         return piece
     valid_moves = position.find_valid_moves_for_piece(
         piece, forced_caputure)
-    print_table(position.get_table(), piece, valid_moves)
     new_position = input_choose_field(valid_moves,coord2)
     if not new_position:
         return "Taknuto maknuto! Doviđenja!"
     previous_table = deepcopy(position.get_table())
     position = position.play_move(piece, new_position)
     differences = position.find_move_played(previous_table)
-    print_table(position.get_table(), differences)
-    print("User played the move displayed on the table above.\n\n\n")
     if ending_conditions(position, without_capture, forced_caputure):
         return position.get_table()
     return position.get_table()
@@ -336,29 +314,22 @@ async def player2(move: Move):
 
     available_pieces = position.find_capturing_moves()
     if forced_caputure:
-        print_table(position.get_table(), available_pieces)
         piece = input_choose_piece(position, coord, available_pieces)
-        print(piece)
     else:
-        print_table(position.get_table())
         piece = input_choose_piece(position, coord)
     
     if not piece:
-        print("Goodbye!")
         return "Goodbye!"
     if isinstance (piece,str):
         return piece
     valid_moves = position.find_valid_moves_for_piece(
         piece, forced_caputure)
-    print_table(position.get_table(), piece, valid_moves)
     new_position = input_choose_field(valid_moves,coord2)
     if not new_position:
         return "Taknuto maknuto! Doviđenja!"
     previous_table = deepcopy(position.get_table())
     position = position.play_move(piece, new_position)
     differences = position.find_move_played(previous_table)
-    print_table(position.get_table(), differences)
-    print("User played the move displayed on the table above.\n\n\n")
     if ending_conditions(position, without_capture, forced_caputure):
         return position.get_table()
     return position.get_table()
@@ -379,20 +350,16 @@ async def valid_moves_player2(valid: ValidMoves):
 
     available_pieces = position.find_capturing_moves()
     if forced_caputure:
-        print_table(position.get_table(), available_pieces)
         piece = input_choose_piece(position, coord, available_pieces)
     else:
-        print_table(position.get_table())
         piece = input_choose_piece(position, coord)
 
     if not piece:
-        print("Goodbye!")
         return "Goodbye!"
     if isinstance (piece,str):
         return piece
     valid_moves = position.find_valid_moves_for_piece(
         piece, forced_caputure)
-    print_table(position.get_table(), piece, valid_moves)
     return (valid_moves, position.get_table())
 
 @app.post("/machine")
@@ -424,9 +391,6 @@ async def machine(board: Machin):
     t2 = time()
     time_previous_move = t2 - t1
     differences = position.find_move_played(previous_table)
-    print(time_previous_move)
-    print_table(position.get_table(), differences)
-    print("Computer played a move displayed on the table above.\n\n")
 
     previous_table = deepcopy(position.get_table())
     t3 = time()
@@ -440,9 +404,6 @@ async def machine(board: Machin):
     t4 = time()
     time_previous_move = t4 - t3
     differences = position.find_move_played(previous_table)
-    print(time_previous_move)
-    print_table(position.get_table(), differences)
-    print("Computer played a move displayed on the table above.\n\n")
     return position.get_table()
 
 if __name__ == "__main__":

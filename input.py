@@ -2,9 +2,7 @@ def input_choose_piece(position,coord, available_pieces=None ):
     while True:
         
         try:
-            print (coord)
             if coord.lower() == "x":
-                print("entra x")
                 return None
             coordinate = (int(coord) // 10), (int(coord) % 10)
             field = position.get_table()[coordinate[0]][coordinate[1]]
@@ -37,7 +35,6 @@ def input_choose_piece(position,coord, available_pieces=None ):
                 elif not position.get_white_to_move() and field.lower() == "c":
                     return coordinate
                 else:
-                    print("Selection is not valid! Try again (no).")
                     return "La seleccion de ficha es incorrecta."
         except:
             return 'Invalid coordinate! Try again.'
@@ -46,11 +43,9 @@ def input_choose_piece(position,coord, available_pieces=None ):
 
 def input_choose_field(valid_moves,coord2):
     while True:
-        print (coord2)
         """ coord = input(
             "Enter the field coordinates(row+column without space ex. 70 for down left)<x to exit>:") """
         try:
-            print (coord2)
             if coord2.lower() == "x":
                 return None
             coordinate = (int(coord2) // 10), (int(coord2) % 10)
