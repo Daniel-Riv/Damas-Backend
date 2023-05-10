@@ -8,7 +8,8 @@ from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 from schemas import Move, ValidMoves, Machin
 from fastapi.middleware.cors import CORSMiddleware
-
+import os
+import uvicorn
 
 # MIN MAX simple implementation
 
@@ -443,3 +444,6 @@ async def machine(board: Machin):
     print_table(position.get_table(), differences)
     print("Computer played a move displayed on the table above.\n\n")
     return position.get_table()
+
+if _name_ == "_main_":
+    uvicorn.run("main:app", host="0.0.0.0", port=int(os.environ.get("PORT", 8080)), log_level="info")
