@@ -445,5 +445,5 @@ async def machine(board: Machin):
     print("Computer played a move displayed on the table above.\n\n")
     return position.get_table()
 
-if _name_ == "_main_":
+if __name__ == "__main__":
     uvicorn.run("main:app", host="0.0.0.0", port=int(os.environ.get("PORT", 8080)), log_level="info")
