@@ -123,9 +123,9 @@ def ending_conditions(position, figure_counter, forced_caputure):
 
     num_figures = position.count_pieces()
     if num_figures[0] == 0:
-        return "Felizidades las fichas negras han ganado!"
+        return "FeliCidades las fichas negras han ganado!"
     if num_figures[1] == 0:
-        return "Felizidades las fichas blancas han ganado!"
+        return "FeliCidades las fichas blancas han ganado!"
     if num_figures[0] + num_figures[1] == figure_counter[0]:
         figure_counter[1] += 1
         if figure_counter[1] == 50:
